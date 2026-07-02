@@ -55,9 +55,9 @@ jobs:
         run: mkdir -p reports/k6
 
       - name: Run K6 test with Docker
-        run: 
-            docker run --rm \
-          --user 0 \
-          -v ${{ github.workspace }}:/workspace \
-          -w /workspace \
-          grafana/k6 run performance/k6/test_api.js --out json=/workspace/reports/k6/results.json
+        run: |
+          docker run --rm --user 0 \
+            -v "${{ github.workspace }}:/workspace" \
+            -w /workspace \
+            grafana/k6 run performance/k6/test_api.js \
+            --out json=/workspace/reports/k6/results.json
