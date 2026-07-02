@@ -1,51 +1,126 @@
-# qa-devops-ai-challenge
-QA Store – Proyecto QA DevOps & Automatización
-📌 Descripción del proyecto
+# 🚀 QA DevOps AI Challenge
 
-QA Store es una aplicación web de tienda en línea que permite a los usuarios:
+Proyecto desarrollado como parte del **QA DevOps AI Challenge**, aplicando buenas prácticas de aseguramiento de calidad, integración continua (CI/CD), pruebas de rendimiento y documentación técnica.
 
-Consultar productos
-Iniciar sesión
-Simular una compra
+---
 
-Este proyecto tiene como objetivo implementar un flujo completo de aseguramiento de calidad (QA) mediante automatización de pruebas, integración continua (CI/CD), control de versiones y análisis asistido con inteligencia artificial.
+# 🎯 Objetivo del Proyecto
 
-🎯 Objetivo del proyecto
+Construir un flujo completo de calidad para una aplicación web utilizando herramientas de automatización, integración continua y pruebas de rendimiento.
 
-Construir un pipeline de calidad profesional que garantice que cada cambio en el código cumpla con estándares mínimos antes de ser integrado a la rama principal (main).
+El proyecto incluye:
 
-Incluye:
+- ✅ Pruebas automatizadas con Pytest.
+- ✅ Pipeline de Integración Continua mediante GitHub Actions.
+- ✅ Pruebas de rendimiento con K6.
+- ✅ Pruebas de carga con JMeter.
+- ✅ Generación de reportes y evidencias.
+- ✅ Definición de Quality Gates.
+- ✅ Documentación técnica y análisis asistido con IA.
 
-Automatización de pruebas funcionales
-Quality Gates en CI/CD
-Evidencias automáticas de ejecución
-Pruebas de performance
-Pruebas de accesibilidad
-Análisis de resultados con IA
-Documentación técnica tipo portafolio QA
+---
 
-🧱 Estructura del repositorio
-qa-store/
-│
-├── app/                     # Código de la aplicación web o API
-├── tests/
-│   ├── functional/          # Pruebas funcionales (UI / API)
-│   ├── performance/         # Pruebas de carga (JMeter / k6)
-│   ├── accessibility/       # Auditorías con Lighthouse / Axe
-│
-├── reports/                 # Evidencias generadas automáticamente
-│   ├── functional/
-│   ├── performance/
-│   ├── accessibility/
-│
-├── .github/
-│   └── workflows/
-│       └── ci-cd.yml       # Pipeline CI/CD
-│
-├── docs/
-│   ├── test-plan.md
-│   ├── quality-gates.md
-│   ├── results-analysis.md
-│
-├── requirements.txt / package.json
-└── README.md
+# 🛠️ Herramientas Utilizadas
+
+| Herramienta | Propósito |
+|-------------|-----------|
+| Python | Lenguaje de programación |
+| Pytest | Automatización de pruebas |
+| Git | Control de versiones |
+| GitHub | Repositorio del proyecto |
+| GitHub Actions | Integración Continua (CI/CD) |
+| K6 | Pruebas de rendimiento |
+| Apache JMeter | Pruebas de carga |
+| Markdown | Documentación |
+| IA Generativa | Apoyo en análisis de pruebas y documentación |
+
+---
+
+# ▶️ Cómo Ejecutar las Pruebas
+
+## 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/USUARIO/QA-DEVOPS-AI-CHALLENGE.git
+```
+
+---
+
+## 2. Entrar al proyecto
+
+```bash
+cd QA-DEVOPS-AI-CHALLENGE
+```
+
+---
+
+## 3. Instalar dependencias
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 4. Ejecutar las pruebas automatizadas
+
+```bash
+pytest
+```
+
+Para generar un reporte HTML:
+
+```bash
+pytest --html=reports/report.html
+```
+
+---
+
+## 5. Ejecutar pruebas con K6
+
+```bash
+k6 run performance/k6/load_test.js
+```
+
+---
+
+## 6. Ejecutar pruebas con JMeter
+
+Abrir el archivo:
+
+```
+performance/jmeter/demoblaze.jmx
+```
+
+y ejecutar el escenario desde Apache JMeter.
+
+---
+
+# 📂 Documentación
+
+- 📄 Plan de pruebas: `docs/test-plan.md`
+- 📄 Hallazgos: `docs/documentacion.md`
+- 📄 Análisis con IA: `docs/ai-analysis.md`
+
+---
+
+# 📊 Evidencias
+
+Las evidencias generadas durante la ejecución se almacenan en:
+
+- `reports/`
+- `evidence/`
+
+---
+
+# ⚙️ Integración Continua
+
+El proyecto utiliza **GitHub Actions** para ejecutar automáticamente las pruebas en cada Push y Pull Request.
+
+---
+
+# 👩‍💻 Autora
+
+**Fernanda Escobar**
+
+QA Automation | DevOps | Performance Testing
