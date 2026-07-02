@@ -46,26 +46,26 @@ jobs:
         run: mkdir -p reports
 
   k6-performance-test:
-    name: Run K6 Performance Tests
-    runs-on: ubuntu-latest
-    steps:
+   name: Run K6 Performance Tests
+   runs-on: ubuntu-latest
+
+  steps:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Install k6
+    - name: Setup k6
       uses: grafana/k6-action@v0.3.1
-      with:
-        filename: test.js
+
     - name: Create reports folder
       run: mkdir -p reports/k6
 
     - name: Run K6 test
-      run: |
-        k6 run performance/k6/test_api.js --out json=reports/k6/results.json
+      run: k6 run performance/k6/test_api.js --out json=reports/k6/results.json
 
-    - name: Upload K6 results
-      uses: actions/upload-artifact@v4
-      with:
-        name: k6-performance-results
-        path: reports/k6/
+   - name: Upload K6 results
+     uses: actions/upload-artifact@v4
+     with:
+      name: k6-performance-results
+      path: reports/k6/
   
+    
