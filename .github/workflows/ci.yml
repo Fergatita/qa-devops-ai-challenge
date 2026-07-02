@@ -11,6 +11,7 @@ on:
 
 jobs:
   test:
+    name: Run Pytest Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -20,21 +21,20 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: "3.10"
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install pytest pytest-html
 
-      # Ejecutar tests con reporte HTML
+      - name: Create reports folder
+        run: mkdir -p reports
+
       - name: Run tests with report and logs
         run: |
-              python -m pytest -v \
-              --html=reports/report.html \
-              --self-contained-html | tee reports/logs.txt
+          python -m pytest tests -v --html=reports/report.html --self-contained-html | tee reports/logs.txt
 
-      #  Guardar artefactos (REPORTES + LOGS)
       - name: Upload test artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -42,30 +42,34 @@ jobs:
           path: |
             reports/report.html
             reports/logs.txt
-      - name: Create reports folder
-        run: mkdir -p reports
 
   k6-performance-test:
-   name: Run K6 Performance Tests
-   runs-on: ubuntu-latest
+    name: Run K6 Performance Tests
+    runs-on: ubuntu-latest
 
-  steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Setup k6
-      uses: grafana/k6-action@v0.3.1
+      - name: Install k6
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl gnupg
+          curl -fsSL https://dl.k6.io/key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/k6-archive-keyring.gpg
+          echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+          sudo apt-get update
+          sudo apt-get install -y k6
 
-    - name: Create reports folder
-      run: mkdir -p reports/k6
+      - name: Create K6 reports folder
+        run: mkdir -p reports/k6
 
-    - name: Run K6 test
-      run: k6 run performance/k6/test_api.js --out json=reports/k6/results.json
+      - name: Run K6 test
+        run: k6 run performance/k6/test_api.js --out json=reports/k6/results.json
 
-   - name: Upload K6 results
-     uses: actions/upload-artifact@v4
-     with:
-      name: k6-performance-results
-      path: reports/k6/
+      - name: Upload K6 results
+        uses: actions/upload-artifact@v4
+        with:
+          name: k6-performance-results
+          path: reports/k6/
   
     
