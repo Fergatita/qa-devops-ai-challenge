@@ -44,7 +44,7 @@ jobs:
             reports/logs.txt
 
   k6-performance-test:
-   name: Run K6 Performance Tests
+    name: Run K6 Performance Tests
     runs-on: ubuntu-latest
 
     steps:
