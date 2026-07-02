@@ -1,0 +1,63 @@
+name: QA CI Pipeline
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - feature/qa-pipeline
+      - main
+
+jobs:
+  test:
+    name: Run Pytest Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pytest-html
+
+      - name: Create reports folder
+        run: mkdir -p reports
+
+      - name: Run tests with report and logs
+        run: |
+          python -m pytest tests -v --html=reports/report.html --self-contained-html | tee reports/logs.txt
+
+      - name: Upload test artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-test-reports
+          path: |
+            reports/report.html
+            reports/logs.txt
+
+  k6-performance-test:
+    name: Run K6 Performance Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create K6 reports folder
+        run: mkdir -p reports/k6
+
+      - name: Run K6 test with Docker
+        run: |
+          docker run --rm --user 0 \
+            -v "${{ github.workspace }}:/workspace" \
+            -w /workspace \
+            grafana/k6 run performance/k6/test_api.js \
+            --out json=/workspace/reports/k6/results.json
