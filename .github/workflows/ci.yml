@@ -44,12 +44,11 @@ jobs:
             reports/logs.txt
       - name: Create reports folder
         run: mkdir -p reports
-  
-       k6-performance-test:
-  name: Run K6 Performance Tests
-  runs-on: ubuntu-latest
 
-  steps:
+  k6-performance-test:
+    name: Run K6 Performance Tests
+    runs-on: ubuntu-latest
+    steps:
     - name: Checkout repository
       uses: actions/checkout@v4
 
